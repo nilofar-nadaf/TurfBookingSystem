@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Turf - Power Play Arena</title>
+    <link rel="stylesheet" th:href="@{/css/searchTurf.css}"> 
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        /*
+        * ------------------------------------
+        * Specific CSS for the Book Now Page
+        * ------------------------------------
+        */
+        :root {
+            --primary-color: #d4ff76; /* Neon Green */
+            --dark-color: #000;
+            --card-bg-color: #1a1a1a;
+            --text-color: #fff;
+            --yellow-star: #ffc107;
+        }
+        
+        /* Header adjustments */
+        header {
+            min-height: 250px; 
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 0; 
+        }
+        .header-content h1 {
+            font-size: 3.5em;
+            color: var(--primary-color); 
+            margin-top: 30px;
+            margin-bottom: 0;
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* Main Booking Container */
+        .booking-page {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            color: var(--text-color);
+            display: flex;
+            gap: 40px;
+        }
+        
+        /* Left Column: Turf Details & Carousel */
+        .turf-details-column {
+            flex: 1.5; /* Takes up more space */
+        }
+        
+        .turf-details-column h2 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .turf-details-column .location {
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-bottom: 25px;
+        }
+
+        /* Image Carousel Placeholder */
+        .image-carousel {
+            position: relative;
+            height: 350px;
+            background-color: var(--card-bg-color);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--primary-color);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #555;
+            text-align: center;
+            /* Placeholder Image from picsum (ID 10) */
+            background-image: url('https://picsum.photos/id/10/800/600'); 
+            background-size: cover;
+            background-position: center;
+        }
+        /* REMOVED .image-carousel::before to remove text overlay */
+        /* ADDED: Style for disabled dropdowns when slot grid is used */
+        .input-group select:disabled {
+            background-color: #1a1a1a;
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        .price-display {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-color);
+            padding: 15px;
+            background-color: #0d0d0d;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-color);
+            margin-bottom: 25px;
+        }
+        .price-display small {
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            font-weight: normal;
+        }
+
+        /* Right Column: Booking & Payment */
+        .booking-controls-column {
+            flex: 1; /* Takes up less space than details */
+            background-color: var(--card-bg-color);
+            padding: 30px;
+            border-radius: 10px;
+            border: 2px solid var(--primary-color);
+            height: fit-content;
+        }
+
+        .booking-controls-column h3 {
+            color: var(--primary-color);
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed #333;
+            padding-bottom: 10px;
+        }
+
+        /* --- Input Styles (Date/Time) --- */
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        .input-group input[type="date"],
+        .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #000;
+            color: var(--text-color);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            -webkit-appearance: none; 
+            appearance: none;
+        }
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(212, 255, 118, 0.5);
+        }
+
+        /* --- Time Slot Grid (Availability) --- */
+        .time-slots-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .slot-btn {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.2s, border 0.2s;
+            border: 1px solid #333;
+        }
+        
+        .slot-btn.available {
+            background-color: #004d00; /* Darker green for available */
+            border-color: var(--primary-color);
+        }
+        
+        .slot-btn.selected {
+            /* Now uses the primary-color background */
+            background-color: var(--primary-color);
+            color: var(--dark-color);
+            font-weight: bold;
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+        
+        .slot-btn.booked {
+            background-color: #500000; /* Dark red for booked */
+            color: #999;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+        
+        /* --- Calculation Summary --- */
+        .payment-summary {
+            padding-top: 15px;
+            border-top: 1px dashed #333;
+            margin-top: 20px;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #ccc;
+        }
+        .summary-row.total {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            border-top: 2px solid var(--primary-color);
+            padding-top: 10px;
+            margin-top: 15px;
+        }
+        
+        /* --- Book Now Button --- */
+        .book-final-btn {
+            background-color: var(--primary-color);
+            color: var(--dark-color);
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background-color 0.3s, transform 0.1s;
+            text-transform: uppercase;
+            width: 100%;
+            font-size: 1.2rem;
+            margin-top: 25px;
+            box-shadow: 0 0 15px rgba(212, 255, 118, 0.5);
+        }
+        .book-final-btn:hover {
+            background-color: #aaff00; 
+            transform: translateY(-2px);
+        }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 900px) {
+            .booking-page {
+                flex-direction: column; 
+            }
+            .turf-details-column, .booking-controls-column {
+                flex: auto;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .time-slots-grid {
+                grid-template-columns: repeat(2, 1fr); 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">Hit<span class="hit">&</span>Play</div>
+            <div class="menu">
+				<a th:href="@{/home}">Home</a>
+				<a href="#">Booking</a>
+				<a th:href="@{/searchTurf}">Search Turfs</a>
+				<a th:href="@{/aboutUs}">About Us</a>
+				<a th:href="@{/contactUs}">Contact</a>
+				<a th:href="@{/login}">Login/Register</a>
+            </div>
+        </nav>
+        
+        <div class="header-content">
+            <h1>Confirm Your Booking</h1>
+        </div>
+    </header>
+
+    <main class="booking-page">
+        
+        <div class="turf-details-column">
+            
+            <h2 id="turfName">Turf Name Loading...</h2>
+            <div class="location"><i class='bx bxs-map'></i> <span id="turfLocation">Location Loading...</span></div>
+            
+            <div class="image-carousel">
+                </div>
+
+            <div class="price-display">
+                <i class='bx bx-money' style="color: var(--primary-color);"></i> Base Price: ₹<span id="basePrice">0.00</span> <small>/hr</small>
+            </div>
+            
+            <div class="feature-list">
+                <h3 style="color: #ccc; font-size: 1.2rem; margin-bottom: 10px;">Turf Features:</h3>
+                <span style="display:inline-block; background-color:#1a1a1a; color:var(--primary-color); padding:5px 10px; border-radius:4px; margin-right:10px; margin-bottom:10px; border:1px solid #333;"><i class='bx bx-parking'></i> Parking Available</span>
+                <span style="display:inline-block; background-color:#1a1a1a; color:var(--primary-color); padding:5px 10px; border-radius:4px; margin-right:10px; margin-bottom:10px; border:1px solid #333;"><i class='bx bx-shower'></i> Changing Room</span>
+                <span style="display:inline-block; background-color:#1a1a1a; color:var(--primary-color); padding:5px 10px; border-radius:4px; margin-right:10px; margin-bottom:10px; border:1px solid #333;"><i class='bx bx-football'></i> 5v5/7v7 Field</span>
+            </div>
+
+        </div>
+        
+        <div class="booking-controls-column">
+            <h3>Select Your Slot</h3>
+            
+            <div class="input-group">
+                <label for="bookingDate">Select Date:</label>
+                <input type="date" id="bookingDate">
+            </div>
+
+            <div class="input-group">
+                <label>Available Slots (Click to select duration):</label>
+                <div class="time-slots-grid" id="timeSlotsGrid">
+                    <button class="slot-btn available" data-time="08:00" data-end-time="09:00">08:00 - 09:00</button>
+                    <button class="slot-btn available" data-time="09:00" data-end-time="10:00">09:00 - 10:00</button>
+                    <button class="slot-btn booked" data-time="10:00" data-end-time="11:00" disabled>10:00 - 11:00</button>
+                    <button class="slot-btn available" data-time="11:00" data-end-time="12:00">11:00 - 12:00</button>
+                    <button class="slot-btn available" data-time="17:00" data-end-time="18:00">17:00 - 18:00</button>
+                    <button class="slot-btn available" data-time="18:00" data-end-time="19:00">18:00 - 19:00</button>
+                    <button class="slot-btn available" data-time="19:00" data-end-time="20:00">19:00 - 20:00</button>
+                    <button class="slot-btn booked" data-time="20:00" data-end-time="21:00" disabled>20:00 - 21:00</button>
+                    <button class="slot-btn available" data-time="21:00" data-end-time="22:00">21:00 - 22:00</button>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 15px;">
+                <div class="input-group" style="flex:1;">
+                    <label for="startTime">From Time:</label>
+                    <select id="startTime">
+                        <option value="">Start Time</option>
+                    </select>
+                </div>
+                <div class="input-group" style="flex:1;">
+                    <label for="endTime">To Time:</label>
+                    <select id="endTime">
+                        <option value="">End Time</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="payment-summary">
+                <h3>Booking Summary</h3>
+                <div class="summary-row">
+                    <span>Hourly Rate:</span>
+                    <span id="summaryRate">₹0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Duration:</span>
+                    <span id="summaryDuration">0 Hours</span>
+                </div>
+                <div class="summary-row">
+                    <span>Service Fee (5%):</span>
+                    <span id="summaryFee">₹0.00</span>
+                </div>
+                
+                <div class="summary-row total">
+                    <span>Amount to Pay:</span>
+                    <span id="totalAmount">₹0.00</span>
+                </div>
+            </div>
+            
+            <button class="book-final-btn" onclick="processBooking()">
+                <i class='bx bxs-zap'></i> BOOK NOW
+            </button>
+
+        </div>
+    </main>
+    
+    <script>
+        // --- JAVASCRIPT FOR BOOKING LOGIC ---
+        
+        // Dynamic variable to hold the rate of the selected turf
+        let TURF_RATE = 0; 
+        const SERVICE_FEE_PERCENTAGE = 0.05;
+
+        // DOM elements
+        const turfNameH2 = document.getElementById('turfName');
+        const turfLocationSpan = document.getElementById('turfLocation');
+        const basePriceDisplay = document.getElementById('basePrice');
+        const startTimeSelect = document.getElementById('startTime');
+        const endTimeSelect = document.getElementById('endTime');
+        const timeSlotsGrid = document.getElementById('timeSlotsGrid');
+        const allSlotButtons = Array.from(timeSlotsGrid.querySelectorAll('.slot-btn'));
+        const summaryDuration = document.getElementById('summaryDuration');
+        const summaryRate = document.getElementById('summaryRate');
+        const summaryFee = document.getElementById('summaryFee');
+        const totalAmount = document.getElementById('totalAmount');
+        
+        /**
+         * Parses URL parameters and sets the turf details.
+         */
+        function loadTurfDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Get data from URL, fallback to default (Power Play Arena) if missing
+            const name = urlParams.get('name') || 'Power Play Arena';
+            const location = urlParams.get('location') || 'Kharadi, Pune';
+            const price = parseFloat(urlParams.get('price')) || 1500;
+            
+            // Update HTML elements
+            turfNameH2.textContent = decodeURIComponent(name);
+            turfLocationSpan.textContent = decodeURIComponent(location);
+            basePriceDisplay.textContent = price.toFixed(2);
+            
+            // Set the dynamic rate variable
+            TURF_RATE = price;
+        }
+
+        // Helper function to convert 'HH:MM' string to total minutes (for comparison)
+        function timeToMinutes(time) {
+            const [hours, minutes] = time.split(':').map(Number);
+            return hours * 60 + minutes;
+        }
+
+        // Populates the Start Time and End Time dropdowns based on SELECTED slots
+        function updateTimeSelectorsFromSlots() {
+            const selectedSlots = allSlotButtons.filter(btn => btn.classList.contains('selected'));
+            
+            // Clear current options
+            startTimeSelect.innerHTML = '<option value="">Start Time</option>';
+            endTimeSelect.innerHTML = '<option value="">End Time</option>';
+
+            if (selectedSlots.length === 0) {
+                // If no slots are selected, populate dropdowns with all available slots for manual selection
+                populateTimeSelectors(); 
+                startTimeSelect.disabled = false;
+                endTimeSelect.disabled = false;
+            } else {
+                // If slots are selected, set dropdowns to the start and end of the contiguous block
+                const firstSelectedTime = selectedSlots[0].getAttribute('data-time');
+                const lastSelectedEndTime = selectedSlots[selectedSlots.length - 1].getAttribute('data-end-time');
+                
+                // Add the selected start time to the Start Time dropdown
+                let startOption = document.createElement('option');
+                startOption.value = firstSelectedTime;
+                startOption.textContent = firstSelectedTime;
+                startOption.selected = true;
+                startTimeSelect.appendChild(startOption);
+
+                // Add the selected end time to the End Time dropdown
+                let endOption = document.createElement('option');
+                endOption.value = lastSelectedEndTime;
+                endOption.textContent = lastSelectedEndTime;
+                endOption.selected = true;
+                endTimeSelect.appendChild(endOption);
+
+                // Disable dropdowns to indicate selection is controlled by the grid
+                startTimeSelect.disabled = true;
+                endTimeSelect.disabled = true;
+            }
+            
+            // Always recalculate the total after updating times
+            calculateTotal();
+        }
+
+        // Populates dropdowns with all available times 
+        function populateTimeSelectors() {
+            startTimeSelect.innerHTML = '<option value="">Start Time</option>';
+            endTimeSelect.innerHTML = '<option value="">End Time</option>';
+
+            const slotsToConsider = allSlotButtons.filter(btn => btn.classList.contains('available') || btn.classList.contains('selected'));
+            if (slotsToConsider.length === 0) return;
+
+            const hourMarkers = new Set();
+            
+            slotsToConsider.forEach(btn => {
+                hourMarkers.add(btn.getAttribute('data-time'));
+                hourMarkers.add(btn.getAttribute('data-end-time'));
+            });
+            
+            const sortedTimes = Array.from(hourMarkers).sort();
+            
+            // Populate Start Time 
+            slotsToConsider.forEach(btn => {
+                const time = btn.getAttribute('data-time');
+                if (!startTimeSelect.querySelector(`option[value="${time}"]`)) { 
+                    const option = document.createElement('option');
+                    option.value = time;
+                    option.textContent = time;
+                    startTimeSelect.appendChild(option);
+                }
+            });
+
+            // Populate End Time 
+            sortedTimes.forEach(time => {
+                if (!endTimeSelect.querySelector(`option[value="${time}"]`)) { 
+                    const option = document.createElement('option');
+                    option.value = time;
+                    option.textContent = time;
+                    endTimeSelect.appendChild(option);
+                }
+            });
+        }
+        
+        // Calculate the booking duration and total price, including contiguous check
+        function calculateTotal() {
+            const startTimeValue = startTimeSelect.value;
+            const endTimeValue = endTimeSelect.value;
+
+            // Update fixed rate display
+            summaryRate.textContent = `₹${TURF_RATE.toFixed(2)}`;
+
+            if (!startTimeValue || !endTimeValue || TURF_RATE === 0) {
+                summaryDuration.textContent = '0 Hours';
+                summaryFee.textContent = '₹0.00';
+                totalAmount.textContent = '₹0.00';
+                return;
+            }
+
+            const startMinutes = timeToMinutes(startTimeValue);
+            const endMinutes = timeToMinutes(endTimeValue);
+            
+            let durationMinutes = endMinutes - startMinutes;
+            let durationHours = durationMinutes / 60;
+            
+            if (durationHours <= 0 || durationMinutes % 60 !== 0) {
+                summaryDuration.textContent = 'Invalid Duration';
+                summaryFee.textContent = '₹0.00';
+                totalAmount.textContent = '₹0.00';
+                return;
+            }
+
+            // CRITICAL VALIDATION: Check if ALL slots between start and end time are 'available'
+            let isContiguousAvailable = true;
+            for (let i = 0; i < allSlotButtons.length; i++) {
+                const slotBtn = allSlotButtons[i];
+                const slotStartMinutes = timeToMinutes(slotBtn.getAttribute('data-time'));
+
+                if (slotStartMinutes >= startMinutes && slotStartMinutes < endMinutes) {
+                    if (slotBtn.classList.contains('booked')) {
+                        isContiguousAvailable = false;
+                        break;
+                    }
+                }
+            }
+            
+            if (!isContiguousAvailable) {
+                summaryDuration.textContent = 'Block Blocked';
+                summaryFee.textContent = '₹0.00';
+                totalAmount.textContent = '₹0.00';
+                // Only alert if the grid is NOT disabled, otherwise the grid selection logic handles this
+                if (!startTimeSelect.disabled) {
+                    alert("The selected time block is not continuously available. Please choose a different duration.");
+                }
+                return;
+            }
+            
+            // Calculate costs
+            const subtotal = durationHours * TURF_RATE;
+            const serviceFee = subtotal * SERVICE_FEE_PERCENTAGE;
+            const total = subtotal + serviceFee;
+
+            // Update summary
+            summaryDuration.textContent = `${durationHours} Hour${durationHours > 1 ? 's' : ''}`;
+            summaryFee.textContent = `₹${serviceFee.toFixed(2)}`;
+            totalAmount.textContent = `₹${total.toFixed(2)}`;
+        }
+
+        // Handles slot button clicks (for visual selection and updating dropdowns)
+        timeSlotsGrid.addEventListener('click', (event) => {
+            const clickedSlot = event.target;
+            if (clickedSlot.classList.contains('slot-btn') && !clickedSlot.classList.contains('booked')) {
+                const isSelected = clickedSlot.classList.contains('selected');
+                
+                const clickedStart = timeToMinutes(clickedSlot.getAttribute('data-time'));
+
+                if (!isSelected) {
+                    // --- Selection Logic ---
+                    let selected = allSlotButtons.filter(btn => btn.classList.contains('selected'));
+                    
+                    if (selected.length === 0) {
+                        // First selection
+                        clickedSlot.classList.add('selected');
+                    } else {
+                        // Check if the new selection is adjacent to the current block
+                        const firstSelectedStart = timeToMinutes(selected[0].getAttribute('data-time'));
+                        const lastSelectedEnd = timeToMinutes(selected[selected.length - 1].getAttribute('data-end-time'));
+                        const clickedEnd = timeToMinutes(clickedSlot.getAttribute('data-end-time'));
+                        
+                        if (clickedStart === lastSelectedEnd) {
+                             // Extend the block to the right
+                            clickedSlot.classList.add('selected');
+                        } else if (clickedEnd === firstSelectedStart) {
+                            // Extend the block to the left
+                            clickedSlot.classList.add('selected');
+                        } else {
+                            // Clicked slot is not adjacent, so start a NEW selection block
+                            allSlotButtons.forEach(btn => btn.classList.remove('selected'));
+                            clickedSlot.classList.add('selected');
+                        }
+                    }
+                } else {
+                    // --- Deselection Logic ---
+                    
+                    // Remove the 'selected' class from the clicked slot
+                    clickedSlot.classList.remove('selected');
+                    
+                    // Re-evaluate the new block of selected slots
+                    let selected = allSlotButtons.filter(btn => btn.classList.contains('selected'));
+                    
+                    if (selected.length > 0) {
+                        // Check if the deselection created a split in the block.
+                        const newFirstTime = timeToMinutes(selected[0].getAttribute('data-time'));
+                        let contiguous = true;
+                        
+                        // Check forward contiguity from the new start
+                        let currentTime = newFirstTime;
+                        for (const btn of selected) {
+                            if (timeToMinutes(btn.getAttribute('data-time')) !== currentTime) {
+                                contiguous = false;
+                                break;
+                            }
+                            currentTime = timeToMinutes(btn.getAttribute('data-end-time'));
+                        }
+                        
+                        if (!contiguous) {
+                            // The deselection split the block, so deselect ALL to force a new selection
+                            selected.forEach(btn => btn.classList.remove('selected'));
+                            alert("Deselecting that slot would create a non-contiguous booking. Please select a new, single time block.");
+                        }
+                    }
+                }
+
+                // Update the dropdowns and calculation based on the new selection
+                updateTimeSelectorsFromSlots();
+            }
+        });
+        
+        // Event listeners for manual selection (only active if no slots are selected)
+        startTimeSelect.addEventListener('change', () => {
+             if (!startTimeSelect.disabled) {
+                calculateTotal();
+             }
+        });
+        endTimeSelect.addEventListener('change', () => {
+             if (!endTimeSelect.disabled) {
+                calculateTotal();
+             }
+        });
+        
+        function processBooking() {
+            if (totalAmount.textContent === '₹0.00' || totalAmount.textContent === 'Invalid Duration' || totalAmount.textContent === 'Block Blocked') {
+                alert("Please select a valid, continuously available booking duration before proceeding.");
+                return;
+            }
+            const turf = turfNameH2.textContent;
+            const total = totalAmount.textContent;
+            alert(`✅ Booking initiated for ${turf}.\n📅 Date: ${document.getElementById('bookingDate').value}\n🕰️ Duration: ${startTimeSelect.value} to ${endTimeSelect.value}\n💸 Total Price: ${total}.\n\n(This is a front-end placeholder action for a real payment gateway.)`);
+        }
+
+        // Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Load data from URL
+            loadTurfDetails(); 
+            
+            // 2. Set minimum date
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById("bookingDate").setAttribute('min', today);
+            document.getElementById("bookingDate").value = today; 
+            
+            // 3. Initial setup for slot selectors
+            populateTimeSelectors();
+            calculateTotal(); 
+        });
+    </script>
+</body>
+</html>

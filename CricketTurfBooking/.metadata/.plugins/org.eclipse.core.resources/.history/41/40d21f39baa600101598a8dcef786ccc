@@ -1,0 +1,17 @@
+package com.dkte.CricketTurfbooking.controller;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class MyController {
+	@GetMapping(path= {"","home","aboutUs","index"})
+	public String welcomeView() {
+		return "home";
+	}
+	
+	@GetMapping(path= {"","home","aboutUs","index"})
+	public String aboutView() {
+		return "home";
+	}
+
+}

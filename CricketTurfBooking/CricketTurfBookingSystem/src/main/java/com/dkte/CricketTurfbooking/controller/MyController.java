@@ -1,0 +1,107 @@
+package com.dkte.CricketTurfbooking.controller;
+import com.dkte.CricketTurfbooking.User.RegistrationForm;
+
+import org.springframework.ui.Model;
+
+import jakarta.validation.Valid;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.validation.FieldError;
+
+
+@Controller
+public class MyController {
+
+    @GetMapping("/")
+    public String rootRedirect() {
+        return "redirect:/home";  // Redirect root URL to /home
+    }
+
+    @GetMapping("/home")
+    public String welcomeView() {
+        return "home";
+    }
+    
+    @GetMapping("/login")
+    public String loginView() {
+        return "login";
+    }
+
+    @GetMapping("/aboutUs")
+    public String aboutView() {
+        return "aboutUs";
+    }
+    
+    @GetMapping("/contactUs")
+    
+    public String contactView() {
+        return "contactUs";
+    }
+    
+    @GetMapping("/searchTurf")
+    public String searchView() {
+        return "searchTurf";
+    }
+    
+    @GetMapping("/selectRole")
+    public String selectRole() {
+        return "selectRole"; 
+    }
+    
+    @GetMapping("/bookNow")
+    public String bookNowView() {
+        return "bookNow";
+    }
+    
+    @GetMapping("/bookConfirm")
+    public String showBookingPage(@RequestParam("name") String name,
+                                  @RequestParam("location") String location,
+                                  @RequestParam("price") String price,
+                                  Model model) {
+        model.addAttribute("turfName", name);
+        model.addAttribute("turfLocation", location);
+        model.addAttribute("turfPrice", price);
+        return "bookConfirm"; // This is your Thymeleaf template
+    }
+
+    @GetMapping("/registration")
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("registrationForm", new RegistrationForm());
+        return "registration";
+    }
+
+    @PostMapping("/register")
+    public String processRegistration(
+            @Valid @ModelAttribute("registrationForm") RegistrationForm form,
+            BindingResult bindingResult,
+            Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
+
+        if (!form.getPassword().equals(form.getConfirmPassword())) {
+            bindingResult.addError(new FieldError(
+                    "registrationForm",
+                    "confirmPassword",
+                    "Passwords do not match."
+            ));
+            return "registration";
+        }
+
+        // Later: save user to database
+        System.out.println("✅ Registered user: " + form.getUsername());
+
+        // Redirect to login with message
+        model.addAttribute("successMessage", "Registration successful! Please log in.");
+        return "login";
+    }
+
+
+
+}

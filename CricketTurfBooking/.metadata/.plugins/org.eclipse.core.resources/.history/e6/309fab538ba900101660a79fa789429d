@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <style>
+        /* CSS from index.html for disabling the form */
+        .register-form-disabled .input-box input,
+        .register-form-disabled .btn {
+            opacity: 0.5;
+            pointer-events: none; /* Prevents clicking */
+        }
+        .register-form-disabled .btn::before {
+            background: none !important;
+        }
+        /* Prevents label moving on focus when disabled */
+        .register-form-disabled .input-box input:focus ~ label {
+             top: 50% !important; 
+             color: #fff !important;
+        }
+        .register-form-message {
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+            color: red; /* Error/Disabled prompt color */
+            font-weight: 500;
+        }
+        .register-form-message.ready {
+            color: rgb(212, 255, 118); /* Success/Ready color */
+        }
+
+        /*
+          CRITICAL FIXES FOR REGISTRATION PAGE OVERLAP
+          We need to simulate the 'active' state on the wrapper for the register view.
+        */
+        .wrapper {
+            /* Ensures background animation is in the 'active' state */
+            background-color: transparent !important; 
+        }
+        
+        /* Manually set the background animations to their 'active' state for the register page */
+        .wrapper .bg-animate {
+            transform: rotate(0) skewY(0) !important;
+            transition: none !important;
+            transition-delay: 0s !important;
+        }
+        .wrapper .bg-animate2 {
+            transform: rotate(-11deg) skewY(-41deg) !important;
+            transition: none !important;
+            transition-delay: 0s !important;
+        }
+
+        /* Overrides the original CSS to ensure only the Register form is visible and properly positioned */
+        .wrapper .form-box.register {
+            /* **FIX: Move form to the right side (where it should be in active state)** */
+            left: 50%;
+            right: auto;
+            /* Restore original padding */
+            padding: 0 10px 0 85px;
+            width: 50%; 
+            pointer-events: auto !important; /* Ensure the form is clickable */
+        }
+
+        /* Ensure the Info Text is in the correct 'active' state on the left */
+        .wrapper .info-text.register {
+            left: 0;
+            right: auto;
+            text-align: left;
+            /* Restore original padding */
+            padding: 0 150px 60px 40px;
+            width: 50%;
+            pointer-events: auto !important;
+        }
+
+        /* Disable the login form animations that are not needed here */
+        .wrapper .form-box.login,
+        .wrapper .info-text.login {
+            display: none !important;
+        }
+
+        /* Force the register form animations to play on load */
+        .wrapper .form-box.register .animation,
+        .wrapper .info-text.register .animation {
+            transform: translateX(0) !important;
+            opacity: 1 !important;
+            filter: blur(0) !important;
+            transition-delay: 0s !important;
+        }
+        
+        /* Center the Register Now title slightly better */
+        .wrapper .form-box.register h2 {
+            margin-left: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <span class="bg-animate"></span>
+        <span class="bg-animate2"></span>
+        
+        <div class="form-box login"></div>
+        <div class="info-text login"></div>
+
+        <div class="form-box register">
+            <h2 class="animation" style="--i:17; --j:0;">Register Now</h2>
+            <form action="#" id="registerForm" class="register-form-disabled">
+                <div class="input-box animation" style="--i:18; --j:1;">
+                    <input type="text" id="username" required disabled>
+                    <label>Username</label>
+                    <i class='bx bx-user'></i>  
+                </div>
+
+                <div class="input-box animation" style="--i:19; --j:2;">
+                    <input type="text" id="email" required disabled>
+                    <label>Email</label>
+                    <i class='bx bx-envelope'></i>   
+                </div>
+
+                <div class="input-box animation" style="--i:20; --j:3;">
+                    <input type="password" id="password" required disabled>
+                    <label>Password</label>
+                    <i class='bx bx-lock'></i> 
+                </div>
+
+                <div class="input-box animation" style="--i:21; --j:4;">
+                    <input type="password" id="confirmPassword" required disabled>
+                    <label>Confirm Password</label>
+                    <i class='bx bx-lock'></i> 
+                </div>
+
+                <button type="submit" class="btn animation" style="--i:22; --j:5;" disabled>Sign Up</button>
+
+                <div id="registerMessage" class="register-form-message animation" style="--i:23; --j:6;">
+                    Please select your role first.
+                </div>
+
+                <div class="logreg-link animation" style="--i:24; --j:7;">
+                    <p>Select your role: <a href="selectrole.html" target="_self">Click Here!</a></p> 
+                    <p>Already have an account? <a href="login.html" class="login-link">Login</a></p>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="info-text register">
+            <h2 class="animation" style="--i:17; --j:0;">Join the Game!</h2>
+            <p class="animation" style="--i:18; --j:1;">Create your account today and start booking turfs anytime, anywhere.</p>
+        </div>
+    </div>
+    
+    <script src="register-script.js"></script>
+</body>
+</html>

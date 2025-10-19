@@ -1,0 +1,31 @@
+package com.dkte.CricketTurfbooking.User;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
+@ToString
+public class RegistrationForm {
+    private String username;
+    private String email;
+    private String password;
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public String getEmail() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}
+

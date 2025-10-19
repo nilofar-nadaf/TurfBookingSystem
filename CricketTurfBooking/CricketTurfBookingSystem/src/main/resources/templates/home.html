@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <title>Home page</title>
+</head>
+<body>
+    <header>
+       <nav>
+        <div class="logo">
+            <span class="hit">Hit</span>&Play
+        </div>
+        <div class="menu">
+            <a th:href="@{/home}">Home</a>
+            <a th:href="@{/searchTurf}">Search Turf</a>
+            <a th:href="@{/aboutUs}">About Us</a>
+            <a th:href="@{/contactUs}">Contact Us</a>
+            <a th:href="@{/login}">Login</a>
+        </div>
+        <div class="login">
+            <a th:href="@{/login}"><button type="submit" class="btn animation" style="--i:3; --j:24;">Login Now</button></a>
+        </div>
+       </nav> 
+       <section class="h-txt">
+        <h1>From Gully Shots to Glory Shots!</h1>
+        <span>Just book online & play like a pro!</span>
+        <div class="book-now">
+            <br>
+            <a th:href="@{/bookNow}"><button type="submit" class="btn animation" style="--i:3; --j:24;">Book Now!!</button></a>
+        </div>
+       </section>
+    </header>
+</body>
+</html>

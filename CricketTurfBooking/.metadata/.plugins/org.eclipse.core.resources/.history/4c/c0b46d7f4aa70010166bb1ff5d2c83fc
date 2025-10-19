@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration Success</title>
+    <!-- Redirect to login page after 3 seconds -->
+    <meta http-equiv="refresh" content="3;url=/index" />
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        h2 { color: green; }
+    </style>
+</head>
+<body>
+    <h2>Registration Successful 🎉</h2>
+    <p th:text="'Welcome, ' + ${username} + '!'"></p>
+    <p>You will be redirected to the login page shortly...</p>
+    <a href="/index">Click here if not redirected</a>
+</body>
+</html>

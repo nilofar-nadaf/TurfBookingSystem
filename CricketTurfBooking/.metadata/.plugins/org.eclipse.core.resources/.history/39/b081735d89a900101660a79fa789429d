@@ -1,0 +1,5 @@
+package com.dkte.CricketTurfbooking.model;
+
+public class RegistrationForm {
+
+}

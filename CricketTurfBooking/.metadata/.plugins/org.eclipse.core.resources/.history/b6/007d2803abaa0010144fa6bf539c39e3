@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="CSS/searchTurf.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hit&Play - Search & Book Turfs</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        /* CSS adapted from original input for consolidation */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        :root {
+            /* Custom CSS variables for easy theming */
+            --primary-color: #d4ff76; /* The bright green accent color */
+            --dark-color: #000;
+            --light-color: #fff;
+            --shadow-color: rgba(212, 255, 118, 0.5);
+            --shadow-base: rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Note: The main CSS is loaded from search_turf.css */
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Hit<span class="hit">&</span>Play</div>
+            <div class="menu">
+                <a href="home.html">Home</a>
+                <a href="booknow.html">Booking</a>
+                <a href="#">Contact</a>
+                <a href="login.html">Login</a>
+            </div>
+        </nav>
+        
+        <div class="header-content">
+            <h1>Find Your Next Game!</h1>
+            
+            <div class="search-box-container">
+                <div class="search-box">
+                    <input type="text" id="filterName" placeholder="Search by Turf Name..." onkeyup="filterTurfs()">
+                    <i class='bx bx-football'></i>
+                </div>
+                <div class="search-box">
+                    <input type="text" id="filterLocation" placeholder="Filter by Location..." onkeyup="filterTurfs()">
+                    <i class='bx bxs-map'></i>
+                </div>
+                <div class="search-box">
+                    <select id="filterType" onchange="filterTurfs()">
+                        <option value="">All Turf Types</option>
+                        <option value="Artificial Turf">Artificial Turf</option>
+                        <option value="Natural Grass">Natural Grass</option>
+                        <option value="Hybrid">Hybrid</option>
+                        <option value="Clay">Clay</option>
+                    </select>
+                    <i class='bx bx-select-multiple'></i>
+                </div>
+            </div>
+            
+        </div>
+    </header>
+
+    <main class="turf-results">
+        <h2>Available Turfs in Your City</h2>
+        
+        <div class="turf-card-container" id="turfCardContainer">
+            
+            <div class="turf-card" data-name="Power Play Arena" data-location="Kharadi, Pune" data-type="Artificial Turf" data-price="1500">
+                <div class="card-image-box">
+                    <img src="https://picsum.photos/id/10/350/200" alt="Turf Image: Power Play" class="card-image">
+                </div>
+                <div class="card-info">
+                    <h3>Power Play Arena</h3>
+                    <div class="location"><i class='bx bxs-map'></i> Kharadi, Pune</div>
+                    <div class="rating">
+                        <i class='bx bxs-star yellow'></i>
+                        <i class='bx bxs-star yellow'></i>
+                        <i class='bx bxs-star yellow'></i>
+                        <i class='bx bxs-star yellow'></i>
+                        <i class='bx bxs-star-half yellow'></i> 4.5
+                    </div>
+                    <div class="details-row">
+                        <span class="price">₹1500 <small>/hr</small></span>
+                        <button class="book-btn" onclick="goToBooking(this.closest('.turf-card'))">Book Now</button>
+                    </div>
+                    <small class="type">Artificial Turf</small>
+                </div>
+            </div>
+
+            <div class="turf-card" data-name="Green Goals Pitch" data-location="Hinjewadi, Pune" data-type="Artificial Turf" data-price="1400">
+                <div class="card-image-box">
+                    <img src="https://picsum.photos/id/11/350/200" alt="Turf Image: Green Goals" class="card-image">
+                </div>
+                <div class="card-info">
+                    <h3>Green Goals Pitch</h3>
+                    <div class="location"><i class='bx bxs-map'></i> Hinjewadi, Pune</div>
+                    <div class="rating">
+                        <i class='bx bxs-star yellow'></i>
+                        <i class='bx bxs-star yellow'></i>
+                        <i class='bx bxs-star yellow'></i>
+                        <i class='bx bxs-star yellow'></i> 4.0
+                    </div>
+                    <div class="details-row">
+                        <span class="price">₹1400 <small>/hr</small></span>
+                        <button class="book-btn" onclick="goToBooking(this.closest('.turf-card'))">Book Now</button>
+                    </div>
+                    <small class="type">Artificial Turf</small>
+                </div>
+            </div>
+            
+            <div class="turf-card" data-name="Champions Court" data-location="Viman Nagar, Pune" data-type="Natural Grass" data-price="1800">
+                <div class="card-image-box">
+                    <img src="https://picsum.photos/id/12/350/200" alt="Turf Image: Champions Court" class="card-image">
+                </div>
+                <div class="card-info">
+                    <h3>Champions Court</h3>
+                    <div class="location"><i class='bx bxs-map'></i> Viman Nagar, Pune</div>
+                    <div class="rating">
+                        <i class='bx bxs-star yellow'></i>
+                        <i class='bx bxs-star yellow'></i>
+                        <i class='bx bxs-star yellow'></i>
+                        <i class='bx bxs-star yellow'></i>
+                        <i class='bx bxs-star yellow'></i> 5.0
+                    </div>
+                    <div class="details-row">
+                        <span class="price">₹1800 <small>/hr</small></span>
+                        <button class="book-btn" onclick="goToBooking(this.closest('.turf-card'))">Book Now</button>
+                    </div>
+                    <small class="type">Natural Grass</small>
+                </div>
+            </div>
+            
+            <div class="turf-card" data-name="Alley Kick Ground" data-location="Deccan Gymkhana, Pune" data-type="Artificial Turf" data-price="900">
+                <div class="card-image-box">
+                    <img src="https://picsum.photos/id/13/350/200" alt="Turf Image: Alley Kick" class="card-image">
+                </div>
+                <div class="card-info">
+                    <h3>Alley Kick Ground</h3>
+                    <div class="location"><i class='bx bxs-map'></i> Deccan Gymkhana, Pune</div>
+                    <div class="rating">
+                        <i class='bx bxs-star yellow'></i>
+                        <i class='bx bxs-star yellow'></i>
+                        <i class='bx bxs-star yellow'></i> 3.0
+                    </div>
+                    <div class="details-row">
+                        <span class="price">₹900 <small>/hr</small></span>
+                        <button class="book-btn" onclick="goToBooking(this.closest('.turf-card'))">Book Now</button>
+                    </div>
+                    <small class="type">Artificial Turf</small>
+                </div>
+            </div>
+
+            <div class="turf-card" data-name="The Goalkeeper Turf" data-location="Baner, Pune" data-type="Natural Grass" data-price="1000">
+                <div class="card-image-box">
+                    <img src="https://picsum.photos/id/14/350/200" alt="Turf Image: The Goalkeeper" class="card-image">
+                </div>
+                <div class="card-info">
+                    <h3>The Goalkeeper Turf</h3>
+                    <div class="location"><i class='bx bxs-map'></i> Baner, Pune</div>
+                    <div class="rating">
+                        <i class='bx bxs-star yellow'></i>
+                        <i class='bx bxs-star yellow'></i>
+                        <i class='bx bxs-star yellow'></i>
+                        <i class='bx bxs-star-half yellow'></i> 3.5
+                    </div>
+                    <div class="details-row">
+                        <span class="price">₹1000 <small>/hr</small></span>
+                        <button class="book-btn" onclick="goToBooking(this.closest('.turf-card'))">Book Now</button>
+                    </div>
+                    <small class="type">Natural Grass</small>
+                </div>
+            </div>
+
+            <div class="turf-card" data-name="The Fast Bowler" data-location="Kothrud, Pune" data-type="Hybrid" data-price="1250">
+                <div class="card-image-box">
+                    <img src="https://picsum.photos/id/15/350/200" alt="Turf Image: Fast Bowler" class="card-image">
+                </div>
+                <div class="card-info">
+                    <h3>The Fast Bowler</h3>
+                    <div class="location"><i class='bx bxs-map'></i> Kothrud, Pune</div>
+                    <div class="rating">
+                        <i class='bx bxs-star yellow'></i>
+                        <i class='bx bxs-star yellow'></i>
+                        <i class='bx bxs-star yellow'></i>
+                        <i class='bx bxs-star-half yellow'></i> 3.8
+                    </div>
+                    <div class="details-row">
+                        <span class="price">₹1250 <small>/hr</small></span>
+                        <button class="book-btn" onclick="goToBooking(this.closest('.turf-card'))">Book Now</button>
+                    </div>
+                    <small class="type">Hybrid</small>
+                </div>
+            </div>
+            
+            <div id="noResultsMessage" style="display: none; width: 100%; text-align: center; color: var(--primary-color); font-size: 1.2rem; margin-top: 30px;">
+                No turfs match your search criteria. Try a different filter!
+            </div>
+
+        </div>
+    </main>
+    
+    <script>
+        // Function to handle the Book Now click and pass data via URL
+        function goToBooking(card) {
+            const turfName = encodeURIComponent(card.getAttribute('data-name'));
+            const turfLocation = encodeURIComponent(card.getAttribute('data-location'));
+            const turfPrice = encodeURIComponent(card.getAttribute('data-price'));
+            
+            // Build the URL with the selected turf data
+            window.location.href = `booknow.html?name=${turfName}&location=${turfLocation}&price=${turfPrice}`;
+        }
+    </script>
+    <script src="search_turf.js"></script>
+</body>
+</html>

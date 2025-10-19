@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Success</title>
+</head>
+<body>
+    <h2>Registration Successful!</h2>
+    <p>Your data has been received by the server.</p>
+</body>
+</html>

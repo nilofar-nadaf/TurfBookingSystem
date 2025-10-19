@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/CSS/style.css}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <style>
+        /*
+          CRITICAL FIXES FOR LOGIN PAGE OVERLAP
+        */
+        .wrapper {
+            /* Ensures background animation is in the initial state */
+            background-color: transparent !important; 
+        }
+
+        /* Overrides the original CSS to ensure only the Login form is visible and correctly positioned on the left */
+        .wrapper .form-box.login {
+            /* **FIX: Set login form width back to 50% and ensure it's on the left** */
+            width: 50%; 
+            left: 0;
+            right: auto;
+            /* Restore original padding */
+            padding: 0 60px 0 40px; 
+        }
+
+        /* Ensure the Info Text is in the correct initial state on the right */
+        .wrapper .info-text.login {
+            right: 0;
+            left: auto;
+            text-align: right;
+            padding: 0 40px 60px 150px;
+            width: 50%;
+        }
+        
+        /* Disable the register form elements */
+        .wrapper .form-box.register,
+        .wrapper .info-text.register {
+            display: none !important;
+        }
+
+        /* Force the login form animations to play on load */
+        .wrapper .form-box.login .animation,
+        .wrapper .info-text.login .animation {
+            transform: translateX(0) !important;
+            opacity: 1 !important;
+            filter: blur(0) !important;
+            transition-delay: 0s !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <span class="bg-animate"></span>
+        <span class="bg-animate2" style="
+            /* Reset bg-animate2 to its initial position for the login view */
+            transform: rotate(0) skewY(0) !important;
+            top: 100% !important;
+            left: 250px !important;
+            transition: none !important;
+            transition-delay: 0s !important;
+        "></span>
+
+        <div class="form-box login">
+            <h2 class="animation" style="--i:0; --j:21;">Login</h2>
+            <form action="#">
+                <div class="input-box animation" style="--i:1; --j:22;">
+                    <input type="text" required>
+                    <label>Username</label>
+                    <i class='bx  bx-user'></i>  
+                </div>
+                <div class="input-box animation" style="--i:2; --j:23;">
+                    <input type="password" required>
+                    <label>Password</label>
+                    <i class='bx  bx-lock'></i> 
+                </div>
+                <button type="submit" class="btn animation" style="--i:3; --j:24;">Login</button>
+                <div class="logreg-link animation" style="--i:4; --j:25;">
+                    <p>Don't have an account? <a href="registration.html" class="register-link">Register Now</a></p>
+                </div>
+            </form>
+        </div>
+
+        <div class="info-text login">
+            <h2 class="animation" style="--i:0; --j:20;">Welcome Back!</h2>
+            <p class="animation" style="--i:1; --j:21;">Ready for your next match? Book your turf in seconds and get into the game.</p>
+        </div>
+        
+        <div class="form-box register"></div>
+        <div class="info-text register"></div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 120px;
+            background-color: #f8f9fa;
+        }
+        h2 {
+            color: #2d862d;
+            font-size: 28px;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Registration Successful 🎉</h2>
+    <a href="/index">Go back to Login</a>
+</body>
+</html>

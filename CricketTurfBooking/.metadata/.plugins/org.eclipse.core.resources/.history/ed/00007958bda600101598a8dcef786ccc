@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/Home.css">
+    <title>Home page</title>
+</head>
+<body>
+    <header>
+       <nav>
+        <div class="logo">
+            <span class="hit">Hit</span>&Play
+        </div>
+        <div class="menu">
+            <a href="Home.html">Home</a>
+            <a href="#">Book Turf</a>
+            <a href="aboutUs.html">About Us</a>
+            <a href="#">Contact Us</a>
+            <a href="index.html">Login</a>
+        </div>
+        <div class="login">
+            <a href="index.html"><button type="submit" class="btn animation" style="--i:3; --j:24;">Login Now</button></a>
+        </div>
+       </nav> 
+       <section class="h-txt">
+        <h1>From Gully Shots to Glory Shots!</h1>
+        <span>Just book online & play like a pro!</span>
+        <div class="book-now">
+            <br>
+            <button type="submit" class="btn animation" style="--i:3; --j:24;">Book Now!!</button>
+        </div>
+       </section>
+    </header>
+</body>
+</html>

@@ -1,0 +1,292 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #d4ff76; /* Neon Green */
+    --dark-color: #000;
+    --card-bg-color: #1a1a1a;
+    --text-color: #fff;
+    --yellow-star: #ffc107;
+}
+
+body {
+    background-color: var(--dark-color);
+    font-family: 'Poppins', sans-serif;
+}
+
+header{
+    width: 100%;
+    min-height: 500px; /* Reduced min-height to accommodate new search boxes */
+    background: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.3)), url(Images/home4.jpg);
+    background-size: cover;
+    background-position: center;
+    padding-bottom: 50px;
+}
+
+nav{
+    width: 100%;
+    height: 80px; /* Reduced height */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: var(--text-color);
+}
+.logo{
+    font-size: 2em;
+    letter-spacing: 2px;
+}
+.logo .hit{
+    color: var(--primary-color);
+}
+
+.menu a{
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+}
+
+.menu a:hover{
+    border-bottom: 2px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.header-content{
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+    padding: 0 20px;
+}
+
+.header-content h1{
+    font-size: 3.5em;
+    color: var(--text-color);
+    margin-bottom: 30px;
+}
+
+/* NEW: Multi-input Search Box Container */
+.search-box-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 0 20px var(--shadow-color);
+}
+
+.search-box {
+    position: relative;
+    flex: 1;
+    min-width: 200px;
+}
+
+.search-box input,
+.search-box select {
+    width: 100%;
+    height: 50px;
+    padding: 0 15px 0 45px; /* Adjust padding for icon */
+    border: 2px solid var(--primary-color);
+    background: var(--dark-color);
+    color: var(--text-color);
+    font-size: 1em;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.search-box input:focus,
+.search-box select:focus {
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+.search-box select {
+    appearance: none; /* Hide default dropdown arrow */
+    cursor: pointer;
+}
+
+.search-box select option {
+    background: var(--dark-color);
+    color: var(--primary-color);
+}
+
+.search-box i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2em;
+    color: var(--primary-color);
+}
+
+
+/* --- TURF CARD STYLES --- */
+
+.turf-results {
+    padding: 50px 20px;
+}
+
+.turf-results h2 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+}
+
+.turf-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.turf-card {
+    background-color: var(--card-bg-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px var(--shadow-base);
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 100%;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+}
+
+.turf-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px var(--shadow-color);
+}
+
+/* NEW: Card Image Styling */
+.card-image-box {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-bottom: 3px solid var(--primary-color);
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.turf-card:hover .card-image {
+    transform: scale(1.05);
+}
+
+.card-info {
+    padding: 20px;
+    flex-grow: 1; /* Makes sure the info box takes up remaining height */
+}
+
+.card-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.card-info .location {
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    color: #ccc;
+}
+
+.card-info .location i {
+    color: var(--primary-color);
+    margin-right: 5px;
+}
+
+.card-info .rating {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.card-info .rating .yellow {
+    color: var(--yellow-star);
+}
+
+.details-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.price {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.price small {
+    font-size: 0.8rem;
+    color: var(--primary-color);
+}
+
+.book-btn {
+    background-color: var(--primary-color);
+    color: var(--dark-color);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.3s, transform 0.1s;
+    text-transform: uppercase;
+}
+
+.book-btn:hover {
+    background-color: #aaff00; /* Slightly darker neon on hover */
+    transform: translateY(-2px);
+}
+
+.card-info .type {
+    display: block;
+    margin-top: 15px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    text-align: right;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .search-box-container {
+        flex-direction: column;
+        gap: 10px;
+        max-width: 500px;
+    }
+
+    .header-content h1 {
+        font-size: 2.5em;
+    }
+}
+
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+        height: auto;
+        padding: 15px 0;
+    }
+    .menu {
+        margin-top: 10px;
+    }
+    .menu a {
+        padding: 5px 10px;
+    }
+}

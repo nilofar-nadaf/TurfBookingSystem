@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmed - Hit&Play</title>
+    <!-- Use the existing CSS for theme consistency -->
+    <link rel="stylesheet" href="CSS/searchTurf.css"> 
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        /*
+        * ------------------------------------
+        * Specific CSS for the Confirmation Page
+        * ------------------------------------
+        */
+        :root {
+            --primary-color: #d4ff76; /* Neon Green */
+            --dark-color: #000;
+            --card-bg-color: #0c0c0c; 
+            --highlight-bg: #1a1a1a;
+            --text-color: #fff;
+            --neon-glow: 0 0 15px rgba(212, 255, 118, 0.8), 0 0 5px rgba(212, 255, 118, 0.5);
+            --neon-border: 2px solid var(--primary-color);
+        }
+        
+        /* Header adjustments for a sub-page */
+        header {
+            min-height: 200px; 
+            padding-bottom: 0; 
+        }
+        .header-content h1 {
+            font-size: 3.5em; 
+            color: var(--primary-color); 
+            margin-top: 30px;
+            margin-bottom: 0;
+            text-shadow: var(--neon-glow); 
+            letter-spacing: 2px;
+        }
+
+        /* Main Confirmation Container */
+        .confirmation-page {
+            padding: 60px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-color);
+            text-align: center;
+        }
+
+        .confirmation-card {
+            background-color: var(--card-bg-color);
+            padding: 40px;
+            border-radius: 10px;
+            border: var(--neon-border);
+            box-shadow: var(--neon-glow);
+        }
+
+        .icon-success {
+            font-size: 5rem;
+            color: var(--primary-color);
+            text-shadow: var(--neon-glow);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .confirmation-card h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .confirmation-card p.lead {
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-bottom: 40px;
+        }
+
+        /* --- Booking Details Section --- */
+        .details-section {
+            text-align: left;
+            margin-bottom: 30px;
+            border-top: 1px dashed #333;
+            padding-top: 30px;
+        }
+
+        .details-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #1f1f1f;
+        }
+
+        .details-row:last-child {
+            border-bottom: none;
+        }
+
+        .details-label {
+            font-size: 1rem;
+            color: var(--primary-color);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .details-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        /* Highlighted Total Amount */
+        .details-row.total-row {
+            margin-top: 20px;
+            padding: 20px 0;
+            background-color: var(--highlight-bg);
+            border: 1px solid var(--primary-color);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(212, 255, 118, 0.5);
+        }
+        .total-row .details-label, .total-row .details-value {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary-color);
+        }
+        
+        /* Turf Image/Placeholder */
+        .turf-image-placeholder {
+            height: 150px;
+            width: 100%;
+            background-color: var(--highlight-bg);
+            border-radius: 5px;
+            margin-bottom: 25px;
+            border: 1px solid #333;
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://picsum.photos/id/10/800/600'); 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .btn-action {
+            padding: 12px 25px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-home {
+            background-color: var(--primary-color);
+            color: var(--dark-color);
+            box-shadow: var(--neon-glow);
+        }
+
+        .btn-home:hover {
+            background-color: #aaff00;
+            transform: translateY(-1px);
+        }
+        
+        .btn-view {
+            background-color: transparent;
+            color: var(--primary-color);
+        }
+        
+        .btn-view:hover {
+            background-color: rgba(212, 255, 118, 0.1);
+            box-shadow: 0 0 5px rgba(212, 255, 118, 0.8);
+        }
+
+        @media (max-width: 600px) {
+            .confirmation-card {
+                padding: 20px;
+            }
+            .confirmation-card h2 {
+                font-size: 2rem;
+            }
+            .total-row .details-label, .total-row .details-value {
+                font-size: 1.2rem;
+            }
+            .action-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">Hit<span class="hit">&</span>Play</div>
+            <div class="menu">
+                <a href="home.html">Home</a>
+                <a href="book_turf.html">Booking</a>
+                <a href="search_turf.html">Search Turfs</a>
+                <a href="aboutUs.html">About Us</a>
+                <a href="contactUs.html">Contact</a>
+                <a href="login.html">Login/Register</a>
+            </div>
+        </nav>
+        
+        <div class="header-content">
+            <h1>BOOKING COMPLETE</h1>
+        </div>
+    </header>
+
+    <main class="confirmation-page">
+        <div class="confirmation-card">
+            <i class='bx bxs-check-circle icon-success'></i>
+            <h2>Booking Confirmed!</h2>
+            <p class="lead">Your Turf Session at **Power Play Arena V2** is successfully reserved.</p>
+
+            <div class="turf-image-placeholder">
+                Power Play Arena V2 (Kharadi)
+            </div>
+
+            <div class="details-section">
+                <!-- Row 1: Turf Name -->
+                <div class="details-row">
+                    <span class="details-label"><i class='bx bx-football'></i> Turf Name</span>
+                    <span class="details-value">Power Play Arena V2</span>
+                </div>
+                
+                <!-- Row 2: Location/Address -->
+                <div class="details-row">
+                    <span class="details-label"><i class='bx bxs-map'></i> Location</span>
+                    <span class="details-value">Kharadi, Pune</span>
+                </div>
+
+                <!-- Row 3: Date -->
+                <div class="details-row">
+                    <span class="details-label"><i class='bx bxs-calendar'></i> Date</span>
+                    <span class="details-value">Friday, 12th Oct 2025</span>
+                </div>
+                
+                <!-- Row 4: Time Slot -->
+                <div class="details-row">
+                    <span class="details-label"><i class='bx bxs-time'></i> Time Slot</span>
+                    <span class="details-value">19:00 - 21:00 (2 Hours)</span>
+                </div>
+
+                <!-- Row 5: Price per Hour -->
+                <div class="details-row">
+                    <span class="details-label"><i class='bx bx-money'></i> Price / Hour</span>
+                    <span class="details-value">₹1500.00</span>
+                </div>
+                
+                <!-- Row 6: Final Amount to Pay (Highlighted) -->
+                <div class="details-row total-row">
+                    <span class="details-label"><i class='bx bxs-wallet'></i> AMOUNT PAID</span>
+                    <span class="details-value">₹3150.00</span>
+                </div>
+            </div>
+
+            <p style="color: #aaa; font-size: 0.9rem; margin-top: -15px; margin-bottom: 25px;">A confirmation email with your booking code (HNP-39045) has been sent to your registered email.</p>
+            
+            <div class="action-buttons">
+                <a href="#" class="btn-action btn-home"><i class='bx bx-home'></i> Back to Home</a>
+                <a href="#" class="btn-action btn-view"><i class='bx bx-receipt'></i> View Receipt</a>
+            </div>
+            
+        </div>
+    </main>
+
+    <script>
+        function processBooking() {
+    if (totalAmount.textContent === '₹0.00' || totalAmount.textContent.includes('Invalid')) {
+        alert("⚠️ Please select a valid booking duration (Start and End Time) before securing your booking.");
+        return;
+    }
+    
+    // --- CHANGE STARTS HERE ---
+    
+    // In a real application, a successful payment confirmation would happen here.
+    
+    // For the front-end demo, we simulate success and redirect to the confirmation page.
+    window.location.href = 'booking_confirmation.html'; 
+    
+    // --- CHANGE ENDS HERE ---
+}
+    </script>
+
+</body>
+</html>

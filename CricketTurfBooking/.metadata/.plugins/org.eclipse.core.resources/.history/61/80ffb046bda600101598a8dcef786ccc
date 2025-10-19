@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/Home.css"> 
+    <link rel="stylesheet" href="CSS/aboutUs.css"> 
+    <title>About Us - Hit&Play</title>
+</head>
+<body>
+    <header class="about-header">
+        <nav>
+            <div class="logo">
+                <span class="hit">Hit</span>&Play
+            </div>
+            <div class="menu">
+                <a href="Home.html">Home</a>
+                <a href="#">Book Turf</a>
+                <a href="AboutUs.html" class="active-link">About Us</a> <a href="#">Contact Us</a>
+                <a href="index.html">Login</a>
+            </div>
+            <div class="login">
+                <a href="index.html"><button type="submit" class="btn animation" style="--i:3; --j:24;">Login Now</button></a>
+            </div>
+        </nav> 
+        <section class="h-txt">
+            <h1>We Are Hit&Play</h1>
+            <span>Booking the Pitch, Redefining the Game.</span>
+        </section>
+    </header>
+
+    <main class="about-container">
+        
+        <section class="section purpose-section">
+            <h2 class="section-title">The Pitch for Perfection: Our System's Purpose</h2>
+            <p class="section-text">
+                The **Hit&Play** system was born out of a simple need: to bring the process of booking a cricket turf into the modern era. We eliminate the frustration of endless phone calls, manual calendars, and double-bookings. Our platform offers a **seamless, intuitive online experience** that saves valuable time for both players and turf owners. It's about hassle-free management and instant access, ensuring more time is spent playing the game you love, and less time on logistics.
+            </p>
+            <div class="purpose-points">
+                <div class="point-card">
+                    <h3>Book Easily</h3>
+                    <p>Find, compare, and book the perfect turf in just a few clicks.</p>
+                </div>
+                <div class="point-card">
+                    <h3>Save Time</h3>
+                    <p>Instant confirmation and a clear schedule, no more waiting games.</p>
+                </div>
+                <div class="point-card">
+                    <h3>Hassle-Free</h3>
+                    <p>Secure payments and automated confirmations for peace of mind.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="section benefit-section">
+            <h2 class="section-title">Who Benefits? A Win-Win-Win Solution</h2>
+            <p class="section-text">
+                Our platform is designed to serve the entire cricketing community, making the game accessible to everyone:
+            </p>
+            <ul>
+                <li><strong>Players:</strong> Gain access to real-time availability and secure your spot instantly.</li>
+                <li><strong>Teams:</strong> Easily coordinate and find suitable practice or match venues without administrative burden.</li>
+                <li><strong>Turf Owners:</strong> Automate your booking process, reduce no-shows, maximize turf utilization, and gain invaluable data insights.</li>
+            </ul>
+        </section>
+
+        <hr>
+
+        <section class="section goals-section">
+            <h2 class="section-title">Our Innings: Mission & Vision</h2>
+            <div class="goals-container">
+
+                <div class="goal-card mission-card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Our Mission</h3>
+                    <p>To be the leading, most reliable, and easiest-to-use digital platform for sports facility bookings, connecting players to their perfect pitch.</p>
+                </div>
+
+                <div class="goal-card vision-card">
+                    <div class="card-icon">🌟</div>
+                    <p>To foster a global community of active sports enthusiasts by connecting them effortlessly with high-quality playing facilities and minimizing administrative hurdles.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2025 Hit&Play. All rights reserved. Play more, manage less.</p>
+    </footer>
+</body>
+</html>

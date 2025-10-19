@@ -1,0 +1,9 @@
+package com.dkte.CricketTurfbooking.User;
+
+public class RegistrationForm {
+	private String username;
+	private String email;
+	private String password;
+	
+	
+}

@@ -1,0 +1,79 @@
+package com.dkte.CricketTurfbooking.controller;
+import com.dkte.CricketTurfbooking.User.RegistrationForm;
+
+import org.springframework.ui.Model;
+
+import jakarta.validation.Valid;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.validation.FieldError;
+
+
+@Controller
+public class MyController {
+
+    @GetMapping("/")
+    public String rootRedirect() {
+        return "redirect:/home";  // Redirect root URL to /home
+    }
+
+    @GetMapping("/home")
+    public String welcomeView() {
+        return "home";
+    }
+
+    @GetMapping("/aboutUs")
+    public String aboutView() {
+        return "aboutUs";
+    }
+
+    @GetMapping("/registration")
+    public String showForm(Model model) {
+        model.addAttribute("registrationForm", new RegistrationForm()); // ✅ important for Thymeleaf
+        return "registration";
+    }
+
+    @PostMapping("/register")
+    public String handleRegistration(
+            @Valid @ModelAttribute("registrationForm") RegistrationForm form,
+            BindingResult bindingResult,
+            Model model) {
+
+        if (bindingResult.hasErrors()) {
+            // ✅ Re-show same form with validation messages
+            return "login";
+        }
+        
+     // ✅ 2. CUSTOM LOGIC: PASSWORD MATCHING CHECK
+        if (!form.getPassword().equals(form.getConfirmPassword())) {
+            // Manually add an error to the BindingResult for the 'confirmPassword' field
+            bindingResult.addError(new FieldError(
+                "registrationForm", 
+                "confirmPassword", 
+                form.getConfirmPassword(), 
+                false, 
+                null, 
+                null, 
+                "Passwords do not match." // ✅ Custom error message
+            ));
+            
+            // Re-show the form with the new error
+            return "registration";
+        }
+
+        System.out.println("✅ Username: " + form.getUsername());
+        System.out.println("✅ Email: " + form.getEmail());
+        System.out.println("✅ Password: " + form.getPassword());
+
+        // ✅ Show success page
+        model.addAttribute("username", form.getUsername());
+        return "login";
+    }
+
+
+}

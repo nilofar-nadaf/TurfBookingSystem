@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Hit&Play</title>
+    <link rel="stylesheet" href="CSS/aboutUs.css"> 
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        /*
+        * ------------------------------------
+        * Specific CSS for the About Us Page
+        * ------------------------------------
+        */
+        
+        /* General page layout adjustments */
+        header {
+            min-height: 250px; /* Shorter header for the sub-page */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-content h1 {
+            font-size: 3.5em;
+            color: var(--primary-color); /* Neon green for the main title */
+            margin-top: 30px;
+            margin-bottom: 0;
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+        
+        .about-section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            color: var(--text-color);
+        }
+
+        .about-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        /* --- Mission & Story Section --- */
+        .story-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .story-container p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccc;
+        }
+        
+        .highlight-text {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* --- Values Section --- */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .value-card {
+            background-color: var(--card-bg-color);
+            border: 1px solid rgba(212, 255, 118, 0.5);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(212, 255, 118, 0.1);
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 25px var(--shadow-color);
+        }
+
+        .value-card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            animation: neonGlow 1.5s ease-in-out infinite alternate;
+        }
+
+        .value-card h3 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .value-card p {
+            font-size: 0.95rem;
+            color: #999;
+        }
+        
+        /* Neon Glow Animation for icons */
+        @keyframes neonGlow {
+            from { text-shadow: 0 0 5px var(--primary-color); }
+            to { text-shadow: 0 0 10px var(--primary-color), 0 0 20px rgba(212, 255, 118, 0.5); }
+        }
+
+        
+        
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">Hit<span class="hit">&</span>Play</div>
+            <div class="menu">
+                <a th:href="@{/home}">Home</a>
+                <a href="#">Booking</a>
+                <a th:href="@{/searchTurf}">Search Turfs</a>
+                <a th:href="@{/aboutUs}" style="border-bottom: 2px solid var(--primary-color); color: var(--primary-color);">About Us</a>
+                <a th:href="@{/contactUs}">Contact</a>
+                <a th:href="@{/login}">Login/Register</a>
+            </div>
+        </nav>
+        
+        <div class="header-content">
+            <h1>The Hit&Play Story</h1>
+        </div>
+    </header>
+
+    <main>
+        
+        <section class="about-section">
+            <h2>Our Mission</h2>
+            <div class="story-container">
+                <p>
+                    In a world where finding a quality sports pitch often means endless calls and unreliable bookings, we launched <span class="highlight-text">Hit&Play</span>. Our mission is simple: to connect passionate players with the best sports turfs instantly, securely, and seamlessly. We are closing the gap between the field and the fingers.
+                </p>
+                <p>
+                    Born from a deep love for the game, we built a platform that puts the power back into the players' hands. We partner with top-tier turf owners to ensure you spend less time searching and more time scoring. Every match, every practice, every moment on the pitch starts here.
+                </p>
+            </div>
+        </section>
+
+        <section class="about-section" style="background-color: #0d0d0d; border-top: 1px solid #222; border-bottom: 1px solid #222;">
+            <h2>Our Core Values</h2>
+            <div class="values-grid">
+                
+                <div class="value-card">
+                    <i class='bx bx-bolt-circle'></i>
+                    <h3>Efficiency</h3>
+                    <p>Booking a turf should take seconds. Our platform is built for speed and reliability.</p>
+                </div>
+                
+                <div class="value-card">
+                    <i class='bx bx-shield-quarter'></i>
+                    <h3>Transparency</h3>
+                    <p>What you see is what you get. Clear pricing, real-time availability, and honest reviews.</p>
+                </div>
+                
+                <div class="value-card">
+                    <i class='bx bx-user-voice'></i>
+                    <h3>Community</h3>
+                    <p>We're building a network of players and owners. The game is always better together.</p>
+                </div>
+                
+                <div class="value-card">
+                    <i class='bx bx-award'></i>
+                    <h3>Quality</h3>
+                    <p>We only list the best. Every turf meets our standards for an exceptional playing experience.</p>
+                </div>
+
+            </div>
+        </section>
+
+        
+    </main>
+    
+    </body>
+</html>

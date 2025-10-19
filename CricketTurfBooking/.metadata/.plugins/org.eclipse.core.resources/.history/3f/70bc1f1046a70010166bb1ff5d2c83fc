@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration Success</title>
+</head>
+<body>
+    <h2>Registration Successful 🎉</h2>
+    <p th:text="'Welcome, ' + ${username} + '!'"></p>
+    <a href="/index">Go back to Login</a>
+</body>
+</html>
