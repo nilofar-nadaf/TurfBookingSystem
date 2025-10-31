@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select User Role</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        /* --- CORE STYLING INHERITED FROM AUTH FORM --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Dark Background Setup */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+        }
+
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        /* Wrapper/Container Style */
+        .wrapper {
+            position: relative;
+            width: 450px;
+            /* Adjusted width for a dedicated selection box */
+            height: auto;
+            /* Auto height based on content */
+            padding: 40px;
+            background: transparent;
+            border: 2px solid;
+            z-index: 2;
+            color: #fff;
+            box-shadow: 0 0 25px rgb(212, 255, 118);
+            /* Neon Green Glow */
+            overflow: hidden;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .wrapper h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: rgb(212, 255, 118);
+        }
+
+        /* Input/Select Styling from original form */
+        .input-box {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            margin: 25px 0;
+        }
+
+        .input-box select {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            border-bottom: 2px solid rgb(212, 255, 118);
+            padding-right: 23px;
+            padding-left: 0;
+            /* Align text better */
+            font-size: 16px;
+            color: rgb(212, 255, 118);
+            font-weight: 500;
+            transition: .5s;
+            appearance: none;
+            /* Hide default dropdown arrow */
+            cursor: pointer;
+        }
+
+        /* Dropdown options for dark theme */
+        .input-box select option {
+            background-color: #000;
+            color: rgb(212, 255, 118);
+            padding: 10px 0;
+        }
+
+        .input-box select:focus {
+            border-bottom-color: rgb(212, 255, 118);
+        }
+
+        /* Floating Label Logic */
+        .input-box label {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: #fff;
+            pointer-events: none;
+            transition: .5s;
+        }
+
+        /* FIX: Label ONLY moves when it has a value (via JS class 'has-value'). */
+        .input-box select.has-value~label {
+            top: -5px;
+            font-size: 14px;
+            color: rgb(212, 255, 118);
+        }
+
+        /* Icon (Dropdown Arrow) Logic */
+        .input-box i {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            font-size: 18px;
+            transition: .5s;
+            color: #fff;
+        }
+
+        /* Icon color still changes when focused or when it has a value */
+        .input-box select:focus~i,
+        .input-box select.has-value~i {
+            color: rgb(212, 255, 118);
+        }
+
+        /* Button Styling from original form */
+        .btn {
+            position: relative;
+            width: 100%;
+            height: 45px;
+            background: transparent;
+            border: 2px solid rgb(212, 255, 118);
+            outline: none;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #fff;
+            font-weight: 600;
+            z-index: 1;
+            overflow: hidden;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 300%;
+            background: linear-gradient(black, rgb(212, 255, 118), black, rgb(212, 255, 118));
+            z-index: -1;
+            transition: .5s;
+        }
+
+        .btn:hover::before {
+            top: 0;
+        }
+
+        /* Message Box Styling */
+        .message-box {
+            font-size: 14px;
+            padding: 10px 15px;
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+            border-radius: 5px;
+            border: 1px solid transparent;
+            color: #000;
+            display: none; /* Hidden by default */
+        }
+
+        .message-box.success {
+            background-color: rgb(212, 255, 118);
+            color: #1a1a1a;
+            border-color: rgb(212, 255, 118);
+        }
+        
+        .message-box.error {
+            background-color: darkred;
+            color: white;
+            border-color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <h2>Role Selection</h2>
+
+        <form id="roleForm" onsubmit="event.preventDefault(); processRoleSelection();" style="width: 100%;">
+
+            <div class="input-box">
+                <select id="userRole" name="userRole" required onchange="toggleLabelClass(this)">
+                    <option value="" disabled>-- Select Your Role --</option> 
+                    <option value="Player">🏏 Player (Book Turfs)</option>
+                    <option value="Owner">🏟️ Owner (Manage Turfs)</option>
+                    <option value="Admin">⚙️ Admin (System Administrator)</option>
+                </select>
+
+                <i class='bx bx-chevron-down'></i>
+            </div>
+
+            <button type="submit" class="btn">
+                Confirm Selection
+            </button>
+        </form>
+
+        <div id="messageBox" class="message-box">
+            Selection Confirmed!
+        </div>
+
+    </div>
+
+    <script>
+        /**
+         * Toggles the 'has-value' class on the select element for the floating label effect.
+         * @param {HTMLSelectElement} selectElement 
+         */
+        function toggleLabelClass(selectElement) {
+            // Check if the selected option has a non-empty value
+            if (selectElement.value !== "") {
+                selectElement.classList.add('has-value');
+            } else {
+                selectElement.classList.remove('has-value');
+            }
+        }
+
+        /**
+         * Processes the selected role, saves it to Session Storage, and redirects.
+         */
+        function processRoleSelection() {
+            const selectElement = document.getElementById('userRole');
+            const selectedRole = selectElement.value;
+            const messageBox = document.getElementById('messageBox');
+
+            // Clear previous messages and ensure it's displayed
+            messageBox.style.display = 'block';
+            messageBox.classList.remove('success', 'error');
+
+            // Ensure the class is set correctly for the floating label
+            toggleLabelClass(selectElement);
+
+            if (selectedRole) {
+                // --- SUCCESS: Save role to SESSION STORAGE and redirect ---
+                
+                // 1. Save the selected role to Session Storage (Cleared when tab closes)
+                sessionStorage.setItem('userSelectedRole', selectedRole);
+
+                // 2. Display success message
+                messageBox.textContent = `Role '${selectedRole}' selected. Redirecting to registration...`;
+                messageBox.classList.add('success');
+                
+                // 3. Redirect back to index.html after a short delay
+                setTimeout(() => {
+                    window.location.replace('@{/selectRole}'); // Redirects the user
+                }, 1000); // 1 second delay
+            } else {
+                // --- ERROR: No role selected ---
+                
+                messageBox.textContent = '🛑 Please select a role before continuing.';
+                messageBox.classList.add('error');
+            }
+        }
+        
+        // NEW LOGIC: This runs on page load and checks Session Storage
+        document.addEventListener('DOMContentLoaded', () => {
+            const selectElement = document.getElementById('userRole');
+            if (selectElement) {
+                // Get role from Session Storage
+                const storedRole = sessionStorage.getItem('userSelectedRole');
+                
+                if (storedRole) {
+                    // If a role is found in session storage, set the dropdown value to that role
+                    selectElement.value = storedRole;
+                } else {
+                    // If no role is found, force the placeholder to be the current value
+                    selectElement.value = ""; 
+                }
+
+                // Apply the floating label class based on the current value
+                // Use a short delay to ensure the label is positioned correctly
+                setTimeout(() => toggleLabelClass(selectElement), 50); 
+            }
+        });
+    </script>
+</body>
+
+</html>

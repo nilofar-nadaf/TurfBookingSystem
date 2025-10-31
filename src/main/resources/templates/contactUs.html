@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Hit&Play</title>
+    <link rel="stylesheet" th:href="@{/css/searchTurf.css}"> 
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">Hit<span class="hit">&</span>Play</div>
+            <div class="menu">
+				<a th:href="@{/home}">Home</a>
+				<a href="#">Booking</a>
+				<a th:href="@{/searchTurf}">Search Turfs</a>
+				<a th:href="@{/aboutUs}" >About Us</a>
+				<a th:href="@{/contactUs}">Contact</a>
+				<a th:href="@{/login}">Login/Register</a>
+            </div>
+        </nav>
+        
+        <div class="header-content">
+            <h1>Get In Touch</h1>
+        </div>
+    </header>
+
+    <main>
+        <div class="contact-container">
+            
+            <div class="contact-info">
+                <h2>Contact Details</h2>
+                
+                <div class="info-item">
+                    <i class='bx bxs-map'></i>
+                    <div>
+                        <p style="color: var(--primary-color); font-weight: 600;">Office Location</p>
+                        <p>101, Turf Tower, Sports Complex Road, Pune, Maharashtra, 411001</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class='bx bxs-phone'></i>
+                    <div>
+                        <p style="color: var(--primary-color); font-weight: 600;">Call Us</p>
+                        <p><a href="tel:+919876543210">+91 9876 543 210</a> (General Inquiries)</p>
+                        <p><a href="tel:+919988776655">+91 9988 776 655</a> (Owner Support)</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class='bx bxs-envelope'></i>
+                    <div>
+                        <p style="color: var(--primary-color); font-weight: 600;">Email Support</p>
+                        <p><a href="mailto:support@hitandplay.com">support@hitandplay.com</a></p>
+                        <p><a href="mailto:partnerships@hitandplay.com">partnerships@hitandplay.com</a></p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="contact-form-section">
+                
+                <div class="contact-form">
+                    <h2>Send Us a Message</h2>
+                    <form action="#" method="POST" onsubmit="alert('Note: This form is for visual demonstration only and does not send an email in this front-end version.'); return false;">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            Send Inquiry
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="map-placeholder">
+                    [Google Maps Embed Location Placeholder]
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+</body>
+</html>

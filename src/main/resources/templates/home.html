@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <title>Home page</title>
+</head>
+<body>
+    <header>
+       <nav>
+        <div class="logo">
+            <span class="hit">Hit</span>&Play
+        </div>
+        <div class="menu">
+            <a th:href="@{/home}">Home</a>
+            <a th:href="@{/searchTurf}">Search Turf</a>
+            <a th:href="@{/aboutUs}">About Us</a>
+            <a th:href="@{/contactUs}">Contact Us</a>
+            
+            <a th:unless="${username}" th:href="@{/login}">Login</a>
+        </div>
+        
+        <div class="login">
+            <th:block th:if="${username}">
+                <span style="color: rgb(212, 255, 118); font-weight: 600; margin-right: 15px;" th:text="'Hello, ' + ${username} + '!'">Hello, User!</span>
+                <a th:href="@{/logout}"><button type="submit" class="btn animation" style="--i:3; --j:24;">Logout</button></a>
+            </th:block>
+            <th:block th:unless="${username}">
+                <a th:href="@{/login}"><button type="submit" class="btn animation" style="--i:3; --j:24;">Login Now</button></a>
+            </th:block>
+        </div>
+       </nav> 
+       
+       <section class="h-txt">
+        <h3 th:if="${loginSuccessMessage}" th:text="${loginSuccessMessage}" style="color: rgb(212, 255, 118); margin-bottom: 20px;">Login successful!</h3>
+
+        <h1>From Gully Shots to Glory Shots!</h1>
+        <span>Just book online & play like a pro!</span>
+        <div class="book-now">
+            <br>
+            <a th:href="@{/bookNow}"><button type="submit" class="btn animation" style="--i:3; --j:24;">Book Now!!</button></a>
+        </div>
+       </section>
+    </header>
+</body>
+</html>

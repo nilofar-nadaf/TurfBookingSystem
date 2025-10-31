@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmed - Hit&Play</title>
+    <!-- Use the existing CSS for theme consistency -->
+    <link rel="stylesheet" th:href="@{/css/searchTurf.css}"> 
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">Hit<span class="hit">&</span>Play</div>
+            <div class="menu">
+				<a th:href="@{/home}">Home</a>
+				<a href="#">Booking</a>
+				<a th:href="@{/searchTurf}">Search Turfs</a>
+				<a th:href="@{/aboutUs}" style="border-bottom: 2px solid var(--primary-color); color: var(--primary-color);">About Us</a>
+				<a th:href="@{/contactUs}">Contact</a>
+				<a th:href="@{/login}">Login/Register</a>
+            </div>
+        </nav>
+        
+        <div class="header-content">
+            <h1>BOOKING COMPLETE</h1>
+        </div>
+    </header>
+
+    <main class="confirmation-page">
+        <div class="confirmation-card">
+            <i class='bx bxs-check-circle icon-success'></i>
+            <h2>Booking Confirmed!</h2>
+            <p class="lead">Your Turf Session at **Power Play Arena V2** is successfully reserved.</p>
+
+            <div class="turf-image-placeholder">
+                Power Play Arena V2 (Kharadi)
+            </div>
+
+            <div class="details-section">
+                <!-- Row 1: Turf Name -->
+                <div class="details-row">
+                    <span class="details-label"><i class='bx bx-football'></i> Turf Name</span>
+                    <span class="details-value">Power Play Arena V2</span>
+                </div>
+                
+                <!-- Row 2: Location/Address -->
+                <div class="details-row">
+                    <span class="details-label"><i class='bx bxs-map'></i> Location</span>
+                    <span class="details-value">Kharadi, Pune</span>
+                </div>
+
+                <!-- Row 3: Date -->
+                <div class="details-row">
+                    <span class="details-label"><i class='bx bxs-calendar'></i> Date</span>
+                    <span class="details-value">Friday, 12th Oct 2025</span>
+                </div>
+                
+                <!-- Row 4: Time Slot -->
+                <div class="details-row">
+                    <span class="details-label"><i class='bx bxs-time'></i> Time Slot</span>
+                    <span class="details-value">19:00 - 21:00 (2 Hours)</span>
+                </div>
+
+                <!-- Row 5: Price per Hour -->
+                <div class="details-row">
+                    <span class="details-label"><i class='bx bx-money'></i> Price / Hour</span>
+                    <span class="details-value">₹1500.00</span>
+                </div>
+                
+                <!-- Row 6: Final Amount to Pay (Highlighted) -->
+                <div class="details-row total-row">
+                    <span class="details-label"><i class='bx bxs-wallet'></i> AMOUNT PAID</span>
+                    <span class="details-value">₹3150.00</span>
+                </div>
+            </div>
+
+            <p style="color: #aaa; font-size: 0.9rem; margin-top: -15px; margin-bottom: 25px;">A confirmation email with your booking code (HNP-39045) has been sent to your registered email.</p>
+            
+            <div class="action-buttons">
+                <a href="#" class="btn-action btn-home"><i class='bx bx-home'></i> Back to Home</a>
+                <a href="#" class="btn-action btn-view"><i class='bx bx-receipt'></i> View Receipt</a>
+            </div>
+            
+        </div>
+    </main>
+	<script src="js/booking.js"></script>
+</body>
+</html>

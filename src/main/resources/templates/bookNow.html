@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Turf - Power Play Arena</title>
+    <link rel="stylesheet" th:href="@{/css/searchTurf.css}"> 
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">Hit<span class="hit">&</span>Play</div>
+            <div class="menu">
+				<a th:href="@{/home}">Home</a>
+				<a href="#">Booking</a>
+				<a th:href="@{/searchTurf}">Search Turfs</a>
+				<a th:href="@{/aboutUs}">About Us</a>
+				<a th:href="@{/contactUs}">Contact</a>
+				<a th:href="@{/login}">Login/Register</a>
+            </div>
+        </nav>
+        
+        <div class="header-content">
+            <h1>Confirm Your Booking</h1>
+        </div>
+    </header>
+
+    <main class="booking-page">
+        
+        <div class="turf-details-column">
+            
+            <h2 id="turfName">Turf Name Loading...</h2>
+            <div class="location"><i class='bx bxs-map'></i> <span id="turfLocation">Location Loading...</span></div>
+            
+            <div class="image-carousel">
+                </div>
+
+            <div class="price-display">
+                <i class='bx bx-money' style="color: var(--primary-color);"></i> Base Price: ₹<span id="basePrice">0.00</span> <small>/hr</small>
+            </div>
+            
+            <div class="feature-list">
+                <h3 style="color: #ccc; font-size: 1.2rem; margin-bottom: 10px;">Turf Features:</h3>
+                <span style="display:inline-block; background-color:#1a1a1a; color:var(--primary-color); padding:5px 10px; border-radius:4px; margin-right:10px; margin-bottom:10px; border:1px solid #333;"><i class='bx bx-parking'></i> Parking Available</span>
+                <span style="display:inline-block; background-color:#1a1a1a; color:var(--primary-color); padding:5px 10px; border-radius:4px; margin-right:10px; margin-bottom:10px; border:1px solid #333;"><i class='bx bx-shower'></i> Changing Room</span>
+                <span style="display:inline-block; background-color:#1a1a1a; color:var(--primary-color); padding:5px 10px; border-radius:4px; margin-right:10px; margin-bottom:10px; border:1px solid #333;"><i class='bx bx-football'></i> 5v5/7v7 Field</span>
+            </div>
+
+        </div>
+        
+        <div class="booking-controls-column">
+            <h3>Select Your Slot</h3>
+            
+            <div class="input-group">
+                <label for="bookingDate">Select Date:</label>
+                <input type="date" id="bookingDate">
+            </div>
+
+            <div class="input-group">
+                <label>Available Slots (Click to select duration):</label>
+                <div class="time-slots-grid" id="timeSlotsGrid">
+                    <button class="slot-btn available" data-time="08:00" data-end-time="09:00">08:00 - 09:00</button>
+                    <button class="slot-btn available" data-time="09:00" data-end-time="10:00">09:00 - 10:00</button>
+                    <button class="slot-btn booked" data-time="10:00" data-end-time="11:00" disabled>10:00 - 11:00</button>
+                    <button class="slot-btn available" data-time="11:00" data-end-time="12:00">11:00 - 12:00</button>
+                    <button class="slot-btn available" data-time="17:00" data-end-time="18:00">17:00 - 18:00</button>
+                    <button class="slot-btn available" data-time="18:00" data-end-time="19:00">18:00 - 19:00</button>
+                    <button class="slot-btn available" data-time="19:00" data-end-time="20:00">19:00 - 20:00</button>
+                    <button class="slot-btn booked" data-time="20:00" data-end-time="21:00" disabled>20:00 - 21:00</button>
+                    <button class="slot-btn available" data-time="21:00" data-end-time="22:00">21:00 - 22:00</button>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 15px;">
+                <div class="input-group" style="flex:1;">
+                    <label for="startTime">From Time:</label>
+                    <select id="startTime">
+                        <option value="">Start Time</option>
+                    </select>
+                </div>
+                <div class="input-group" style="flex:1;">
+                    <label for="endTime">To Time:</label>
+                    <select id="endTime">
+                        <option value="">End Time</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="payment-summary">
+                <h3>Booking Summary</h3>
+                <div class="summary-row">
+                    <span>Hourly Rate:</span>
+                    <span id="summaryRate">₹0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Duration:</span>
+                    <span id="summaryDuration">0 Hours</span>
+                </div>
+                <div class="summary-row">
+                    <span>Service Fee (5%):</span>
+                    <span id="summaryFee">₹0.00</span>
+                </div>
+                
+                <div class="summary-row total">
+                    <span>Amount to Pay:</span>
+                    <span id="totalAmount">₹0.00</span>
+                </div>
+            </div>
+            
+            <button class="book-final-btn" onclick="processBooking()">
+                <i class='bx bxs-zap'></i> BOOK NOW
+            </button>
+
+        </div>
+    </main>
+	<script src="js/bookNow.js"></script>
+</body>
+</html>

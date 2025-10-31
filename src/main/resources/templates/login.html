@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="wrapper">
+        <span class="bg-animate"></span>
+        <span class="bg-animate2" style="
+            transform: rotate(0) skewY(0) !important;
+            top: 100% !important;
+            left: 250px !important;
+            transition: none !important;
+            transition-delay: 0s !important;
+        "></span>
+
+        <div class="form-box login">
+            <h2 class="animation" style="--i:0; --j:21;">Login</h2>
+
+            <!-- ✅ Correct form setup -->
+            <form th:action="@{/login}" method="post" th:object="${registrationForm}">
+                <div class="input-box animation" style="--i:1; --j:22;">
+                    <input type="text" th:field="*{username}" name="username" required>
+                    <label>Username</label>
+                    <i class='bx bx-user'></i>  
+                </div>
+                <div class="input-box animation" style="--i:2; --j:23;">
+                    <input type="password" th:field="*{password}" name="password" required>
+                    <label>Password</label>
+                    <i class='bx bx-lock'></i> 
+                </div>
+
+                <!-- ✅ Error message display -->
+                <p th:if="${error}" th:text="${error}" style="color:red; text-align:center;"></p>
+
+                <button type="submit" class="btn animation" style="--i:3; --j:24;">Login</button>
+
+                <div class="logreg-link animation" style="--i:4; --j:25;">
+                    <p>Don't have an account? <a th:href="@{/register}" class="register-link">Register Now</a></p>
+                </div>
+            </form>
+        </div>
+
+        <div class="info-text login">
+            <h2 class="animation" style="--i:0; --j:20;">Welcome Back!</h2>
+            <p class="animation" style="--i:1; --j:21;">Ready for your next match? Book your turf in seconds and get into the game.</p>
+        </div>
+
+        <div class="form-box register"></div>
+        <div class="info-text register"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/registration.css}"> 
+    <title>Registration</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="form-title">Create Account</h1>
+        
+        <form th:action="@{/register}" th:object="${registrationForm}" method="post">
+            <div class="main-user-info">
+                
+                <div class="user-input-box">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" th:field="*{fullName}" placeholder="Enter Full Name" />
+                    <span class="error-text" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
+                </div>
+                
+                <div class="user-input-box">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" th:field="*{username}" placeholder="Enter username" />
+                    <span class="error-text" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+                </div>
+                
+                <div class="user-input-box">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" th:field="*{email}" placeholder="Enter Email" />
+                    <span class="error-text" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                </div>
+                
+                <div class="user-input-box">
+                    <label for="phonenumber">Phone Number</label>
+                    <input type="text" id="phonenumber" th:field="*{phoneNumber}" placeholder="Enter Phone Number" />
+                    <span class="error-text" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+                </div>
+                
+                <div class="user-input-box">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" th:field="*{password}" placeholder="Enter Password" />
+                    <span class="error-text" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                </div>
+                
+                <div class="user-input-box">
+                    <label for="cpassword">Confirm Password</label>
+                    <input type="password" id="cpassword" th:field="*{cpassword}" placeholder="Confirm Password" />
+                    <span class="error-text" th:if="${#fields.hasErrors('cpassword')}" th:errors="*{cpassword}"></span>
+                </div>
+            </div>
+            
+            <div class="user-input-box full-width role-select-container">
+                <label for="userRole">Select Role</label>
+                <select id="userRole" th:field="*{userRole}" class="role-select" required> 
+                    <option value="" disabled selected>-- Select Your Role --</option>
+                    <option value="Player">🏏 Player (Book Turfs)</option>
+                    <option value="Owner">🏟️ Owner (Manage Turfs)</option>
+                    <option value="Admin">⚙️ Admin (System Administrator)</option>
+                </select>
+                <span class="error-text" th:if="${#fields.hasErrors('userRole')}" th:errors="*{userRole}"></span>
+            </div>
+            
+            <button type="submit" class="btn">
+                Sign Up
+            </button>
+        </form>
+    </div>
+</body>
+
+</html>
